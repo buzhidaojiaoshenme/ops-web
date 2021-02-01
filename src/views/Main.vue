@@ -11,18 +11,13 @@
                 <div>
                     <h1>RPC</h1>
                 </div>
-                <el-submenu index="1">
-                    <template slot="title"><i class="el-icon-message"></i>凌拓数据处理</template>
-                    <!--                    <el-submenu index="1-4">-->
-                    <!--                        <template slot="title">选项4</template>-->
+                <el-submenu v-for="menu in menus" v-bind:index="menu.index">
+                    <template slot="title"><i class="el-icon-message"></i>{{menu.title}}</template>
                     <el-menu-item
-                            index="/upload">
-                        bom
+                            v-for="suMenu in menu.subMenus"
+                            v-bind:index="suMenu.index">
+                        {{suMenu.title}}
                     </el-menu-item>
-                    <el-menu-item index="1-2">
-                        jv服务注册
-                    </el-menu-item>
-                    <!--                    </el-submenu>-->
                 </el-submenu>
 
             </el-menu>
@@ -43,14 +38,6 @@
 
             <el-main>
                 <router-view>
-                    <!--                    <el-table :data="tableData">-->
-                    <!--                        <el-table-column prop="date" label="日期" width="140">-->
-                    <!--                        </el-table-column>-->
-                    <!--                        <el-table-column prop="name" label="姓名" width="120">-->
-                    <!--                        </el-table-column>-->
-                    <!--                        <el-table-column prop="address" label="地址">-->
-                    <!--                        </el-table-column>-->
-                    <!--                    </el-table>-->
                 </router-view>
             </el-main>
         </el-container>
@@ -62,6 +49,26 @@
 
     export default {
         name: "Main",
+        data: function () {
+            return {
+                menus: [
+                    {
+                        index: '1',
+                        title: '凌拓数据处理',
+                        subMenus: [
+                            {
+                                index: '/upload',
+                                title: 'bom',
+                            },
+                            {
+                                index: '1-2',
+                                title: 'jv服务',
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         components: {},
         computed: {
             tableData: function () {
