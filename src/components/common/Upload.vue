@@ -1,7 +1,7 @@
 <template>
     <el-upload
             class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            v-bind:action="'http://' + action"
     >
         <el-button size="small" type="primary">点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传{{fileType}}文件，且不超过{{fileSize}}</div>
@@ -22,10 +22,16 @@
         },
         computed: {
             fileType: function () {
-                return 'excel';
+                console.log('==' + this.$route.query.fileType);
+                return this.$route.query.fileType;
             },
             fileSize: function () {
-                return '100m';
+                console.log('==' + this.$route.query.fileSize);
+                return this.$route.query.fileSize;
+            },
+            action: function () {
+                console.log('==' + this.$route.query.action);
+                return this.$route.query.action;
             }
 
         }

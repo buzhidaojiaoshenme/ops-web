@@ -14,9 +14,10 @@
                 <el-submenu v-for="menu in menus" v-bind:index="menu.index">
                     <template slot="title"><i class="el-icon-message"></i>{{menu.title}}</template>
                     <el-menu-item
-                            v-for="suMenu in menu.subMenus"
-                            v-bind:index="suMenu.index">
-                        {{suMenu.title}}
+                        v-for="suMenu in menu.subMenus"
+                        v-on:click="handleItemClick(suMenu)"
+                    >
+                        <span>{{suMenu.title}}</span>
                     </el-menu-item>
                 </el-submenu>
 
@@ -59,6 +60,11 @@
                             {
                                 index: '/upload',
                                 title: 'bom',
+                                params: {
+                                    fileType: '.xls/.xlsx',
+                                    fileSize: '100m',
+                                    action: 'localhost:8080/netapp/serviceBom'
+                                }
                             },
                             {
                                 index: '1-2',
@@ -78,6 +84,13 @@
                     address: '北京市昌平区'
                 }
                 return Array(10).fill(item);
+            }
+        },
+        methods: {
+            handleItemClick: function (obj) {
+                let path = obj.index;
+                let query = obj.params;
+                this.$router.push({path: path, query: query})
             }
         }
     }
